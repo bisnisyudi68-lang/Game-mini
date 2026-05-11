@@ -1,9 +1,13 @@
 const symbols = [
 
-"👑",
-"🔥",
+"🍉",
+"🍇",
+"🍋",
+"🍒",
+"💎",
 "⚡",
-"🎁"
+"🔥",
+"👑"
 
 ];
 
@@ -33,17 +37,58 @@ function spin(){
   let reels =
   document.querySelectorAll(".reel");
 
+  let counts = {};
+
   reels.forEach(function(reel){
 
-    reel.innerText =
-    randomSymbol();
+    let sym = randomSymbol();
+
+    reel.innerText = sym;
+
+    if(counts[sym]){
+
+      counts[sym]++;
+
+    }else{
+
+      counts[sym] = 1;
+
+    }
 
   });
 
+  let win = false;
+  let totalWin = 0;
+
+  for(let key in counts){
+
+    if(counts[key] >= 8){
+
+      win = true;
+
+      totalWin += counts[key] * 20;
+
+    }
+
+  }
+
+  if(win){
+
+    coin += totalWin;
+
+    document.querySelector(".result")
+    .innerText =
+    "WINNER 🎉 +" + totalWin;
+
+  }else{
+
+    document.querySelector(".result")
+    .innerText =
+    "Kalah 😢";
+
+  }
+
   document.getElementById("coin")
   .innerText = coin;
-
-  document.querySelector(".result")
-  .innerText = "SPIN BERHASIL 🎰";
 
 }
